@@ -1,5 +1,5 @@
-def label = "sumapp-${UUID.randomUUID().toString()}"
-def label1 = "icp-agent"
+def label1 = "sumapp-${UUID.randomUUID().toString()}"
+def label = "icp-agent"
 podTemplate(label: label, 
 	containers: [
 	  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
