@@ -17,14 +17,14 @@ podTemplate(label: label,
 	  }
 
 	  def props = readProperties  file:'deployment/pipeline.properties'
-	  def tag = props['version']
-	  def gitSrc = props['gitSrc']
-	  def dockerRegistry = props['dockerRegistry']
-	  def image = props['image']
-	  def deployment = props['deployment']
-	  def service = props['service']
-	  def selector = props['selector']
-	  def namespace = props['namespace']
+	  def tag = 0.1.0
+	  //def gitSrc = props['gitSrc']
+	  def dockerRegistry = https://mycluster.icp:8500
+	  def image = mycluster.icp:8500/demo/sumapp
+	  def deployment = deployment/sumapp-deploy.yaml
+	  def service = deployment/sumapp-svc.yaml
+	  def selector = sumapp
+	  def namespace = demo
 
 	    
 	  stage('Build Maven project') {
