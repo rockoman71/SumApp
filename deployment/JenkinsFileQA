@@ -4,7 +4,7 @@ node {
     def namespace = 'devops'
   
   stage('git') {
-		git "https://github.com/rockoman71/SumApp.git"
+		git gitRepo
 	  }
   
     stage('Deploy container') {    
