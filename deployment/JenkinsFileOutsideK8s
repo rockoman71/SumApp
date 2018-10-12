@@ -1,12 +1,13 @@
 node { 
     def app
-    def tag = '${BUILD_NUMBER}'
-    def dockerRegistry = 'mycluster.icp:8500'
+    def tag = '${env.BUILD_NUMBER}'
+    def dockerRegistry = 'https://mycluster.icp:8500'
     def image = 'devops/sumapp'
-    def namespace = 'devops'
+    def jenkinsCredentialRecordUserPassword = 'docker'
+    def gitRepo = "https://github.com/rockoman71/SumApp.git"
     
     stage('Get Source') {
-		   git "https://github.com/rockoman71/SumApp.git"
+		   git gitRepo
 	  }
     
     stage('Build Maven project') {
@@ -23,8 +24,8 @@ node {
     } 
    
     stage('Build Docker image test') {
-            docker.withRegistry("https://mycluster.icp:8500",'docker') {
-	          app.push("${env.BUILD_NUMBER}")
+            docker.withRegistry(dockerRegistry,jenkinsCredentialRecordUserPassword) {
+	          app.push(tag)
                   app.push("latest")
 	    }
    }
