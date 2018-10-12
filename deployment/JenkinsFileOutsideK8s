@@ -1,0 +1,33 @@
+node {
+    
+    def tag = '0.1.0'
+	  //def gitSrc = props['gitSrc']
+	  def dockerRegistry = 'mycluster.icp:8500'
+	  def image = 'mycluster.icp:8500/demo/sumapp'
+	  def namespace = 'devops'
+    
+    stage('Get Source') {
+		   git "https://github.com/rockoman71/SumApp.git"
+	  }
+    
+    stage('Build Maven project') {
+		  
+			  sh "mvn -B clean package"
+		  
+	  }
+    
+    stage('Build Docker image') {
+		    
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker',
+         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+
+        sh 'echo $PASSWORD | docker login ${dockerRegistry} -u $USERNAME --password-stdin'
+		  
+			  sh "docker build -t ${image}:${tag} ."
+			  sh "docker push ${image}:${tag}"
+			  sh "docker tag ${image}:${tag} ${image}:latest"
+			  sh "docker push ${image}:latest"
+		  
+		 
+	  }       
+}
