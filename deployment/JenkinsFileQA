@@ -1,0 +1,11 @@
+node { 
+    def deployment = 'deployment/sumapp-deploy.yaml'
+	  def service = 'deployment/sumapp-svc.yaml'
+	  def namespace = 'devops'
+      
+    stage('Deploy container') {    
+ 			  sh "kc apply -n ${namespace} -f ${deployment}"
+			  sh "sleep 5"
+			  sh "kc apply -n ${namespace} -f ${service}"
+   }
+}
