@@ -9,8 +9,8 @@ node {
 	  }
   
     stage('Deploy container') {    
- 			  sh "kc apply -n ${namespace} -f ${deployment}"
+ 			  sh "sudo kc apply -n ${namespace} -f ${deployment}"
 			  sh "sleep 5"
-			  sh "kc apply -n ${namespace} -f ${service}"
+			  sh "sudo kc apply -n ${namespace} -f ${service}"
    }
 }
