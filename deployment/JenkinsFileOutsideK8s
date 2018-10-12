@@ -1,4 +1,5 @@
 node { 
+    def app
     def tag = '${BUILD_NUMBER}'
     def dockerRegistry = 'mycluster.icp:8500'
     def image = 'mycluster.icp:8500/demo/sumapp'
@@ -10,11 +11,22 @@ node {
     
     stage('Build Maven project') {
 		  
-			  sh "mvn -B clean package"
+		  sh "mvn -B clean package"
 		  
 	  }
+    
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build(image)
+    } 
+   
     stage('Build Docker image test') {
-            docker.withRegistry("https://mycluster.icp:8500")
+            docker.withRegistry("https://mycluster.icp:8500",'docker') {
+	                    app.push("${env.BUILD_NUMBER}")
+                            app.push("latest")
+	    }
     }
     stage('Build Docker image') {
 		    
