@@ -1,8 +1,4 @@
 node { 
-    environment {
-       registryCredential = 'docker'
-    }
-
     def tag = '${BUILD_NUMBER}'
     def dockerRegistry = 'mycluster.icp:8500'
     def image = 'mycluster.icp:8500/demo/sumapp'
@@ -18,7 +14,7 @@ node {
 		  
 	  }
     stage('Build Docker image test') {
-            docker.withRegistry( 'mycluster.icp:8500', registryCredential )
+            docker.withRegistry( 'mycluster.icp:8500', 'docker' )
     }
     stage('Build Docker image') {
 		    
