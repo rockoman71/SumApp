@@ -22,7 +22,7 @@ node {
         app = docker.build(image)
     } 
    
-    stage('Build Docker image test') {
+    stage('Push image to ICP') {
             docker.withRegistry(dockerRegistry,jenkinsCredentials) {
 	          app.push("${env.BUILD_NUMBER}")
                   app.push("latest")
