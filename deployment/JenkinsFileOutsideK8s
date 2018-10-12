@@ -17,9 +17,8 @@ node {
     
     stage('Build Docker image') {
 		    
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker',
-         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh 'echo $PASSWORD | docker login ${dockerRegistry} -u $USERNAME --password-stdin'
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+            sh 'docker login ${dockerRegistry} -u $USERNAME -p $PASSWORD'
 	  }	  
 			  sh "docker build -t ${image}:${tag} ."
 			  sh "docker push ${image}:${tag}"
