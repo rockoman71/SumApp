@@ -1,5 +1,8 @@
-node {
-    
+node { 
+    environment {
+       registryCredential = 'docker'
+    }
+
     def tag = '${BUILD_NUMBER}'
     def dockerRegistry = 'mycluster.icp:8500'
     def image = 'mycluster.icp:8500/demo/sumapp'
@@ -14,7 +17,9 @@ node {
 			  sh "mvn -B clean package"
 		  
 	  }
-    
+    stage('Build Docker image test') {
+            docker.withRegistry( 'mycluster.icp:8500', registryCredential )
+    }
     stage('Build Docker image') {
 		    
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
