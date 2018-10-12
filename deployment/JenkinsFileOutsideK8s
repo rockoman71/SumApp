@@ -1,6 +1,5 @@
 node { 
     def app
-    def tag = '${env.BUILD_NUMBER}'
     def dockerRegistry = 'https://mycluster.icp:8500'
     def image = 'devops/sumapp'
     def jenkinsCredentials = 'docker'
@@ -25,7 +24,7 @@ node {
    
     stage('Build Docker image test') {
             docker.withRegistry(dockerRegistry,jenkinsCredentials) {
-	          app.push(tag)
+	          app.push("${env.BUILD_NUMBER}")
                   app.push("latest")
 	    }
    }
