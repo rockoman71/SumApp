@@ -14,7 +14,7 @@ node {
 		  
 	  }
     stage('Build Docker image test') {
-            docker.withRegistry("https://mycluster.icp:8500","docker")
+            docker.withRegistry("https://mycluster.icp:8500",docker)
     }
     stage('Build Docker image') {
 		    
