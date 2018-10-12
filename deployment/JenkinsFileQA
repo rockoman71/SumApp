@@ -1,8 +1,12 @@
 node { 
     def deployment = 'deployment/sumapp-deploy.yaml'
-	  def service = 'deployment/sumapp-svc.yaml'
-	  def namespace = 'devops'
-      
+    def service = 'deployment/sumapp-svc.yaml'
+    def namespace = 'devops'
+  
+  stage('git') {
+		git "https://github.com/rockoman71/SumApp.git"
+	  }
+  
     stage('Deploy container') {    
  			  sh "kc apply -n ${namespace} -f ${deployment}"
 			  sh "sleep 5"
