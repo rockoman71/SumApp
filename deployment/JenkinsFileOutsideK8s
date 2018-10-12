@@ -24,19 +24,8 @@ node {
    
     stage('Build Docker image test') {
             docker.withRegistry("https://mycluster.icp:8500",'docker') {
-	                    app.push("${env.BUILD_NUMBER}")
-                            app.push("latest")
+	          app.push("${env.BUILD_NUMBER}")
+                  app.push("latest")
 	    }
-    }
-    stage('Build Docker image') {
-		    
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh 'docker login ${dockerRegistry} -u $USERNAME -p $PASSWORD'
-	  }	  
-			  sh "docker build -t ${image}:${tag} ."
-			  sh "docker push ${image}:${tag}"
-			  sh "docker tag ${image}:${tag} ${image}:latest"
-			  sh "docker push ${image}:latest"
-		  
-   }       
+   }
 }
