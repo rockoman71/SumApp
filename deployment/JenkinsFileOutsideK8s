@@ -23,7 +23,7 @@ node {
     } 
    
     stage('Build Docker image test') {
-            docker.withRegistry("mycluster.icp:8500",'docker') {
+            docker.withRegistry("https://mycluster.icp:8500",'docker') {
 	          app.push("${env.BUILD_NUMBER}")
                   app.push("latest")
 	    }
