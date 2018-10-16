@@ -1,0 +1,14 @@
+node { 
+    def deployment = 'deployment/sumapp-deploy.yaml'
+    def service = 'deployment/sumapp-svc.yaml'
+    def namespace = 'devops'
+    def gitRepo = "https://github.com/rockoman71/SumApp.git"
+  
+  stage('git') {
+  		git gitRepo
+	  }
+  
+    stage('Deploy container') {    
+ 			  sh "echo 'deploying to prod...'"
+   }
+}
