@@ -4,6 +4,9 @@ node {
     def image = 'devops/sumapp'
     def jenkinsCredentials = 'docker'
     def gitRepo = "https://github.com/rockoman71/SumApp.git"
+    def deployment = 'deployment/sumapp-deploy.yaml'
+    def service = 'deployment/sumapp-svc.yaml'
+    def namespace = 'devops'
     
     stage('Get Source') {
 		   git gitRepo
@@ -28,4 +31,12 @@ node {
                   app.push("latest")
 	    }
    }
+   
+   stage( 'Deploy to Cluster' ) {
+	  		  
+			  sh "kubectl apply -n ${namespace} -f ${deployment}"
+			  sh "sleep 5"
+			  sh "kubectl apply -n ${namespace} -f ${service}"
+	  }
+   
 }
