@@ -33,10 +33,9 @@ node {
    }
    
    stage( 'Deploy to Cluster' ) {
-	  		  
-			  sh "kubectl apply -n ${namespace} -f ${deployment}"
-			  sh "sleep 5"
-			  sh "kubectl apply -n ${namespace} -f ${service}"
+              sh "sudo kc apply -n ${namespace} -f ${deployment}"
+	      sh "sleep 5"
+	      sh "sudo kc apply -n ${namespace} -f ${service}"
 	  }
    
 }
