@@ -1,0 +1,14 @@
+node { 
+    
+    def gitRepo = "https://github.com/rockoman71/SumApp.git"
+  
+  stage('git') {
+		git gitRepo
+	  }
+  
+    stage('Deploy') {    
+ 			  
+			  sh "sleep 5"
+		
+   }
+}
